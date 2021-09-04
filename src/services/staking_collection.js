@@ -171,7 +171,7 @@ async function queryStakeData(pastEvent, stakingContract) {
         // balance tính tới thời điểm current block/tức là block cuối cùng
         let balanceTmp = await tokenContract().methods.balanceOf(wallet).call({});
         balance = balance + BigInt(balanceTmp);
-        let stakeSum = stakingAmount.plus(rewardAmount);
+        let stakeSum = stakingAmount + rewardAmount;
         //  stakeSum = stakeSum.multipliedBy(1.5) // nếu muốn nhân 1.5 ở stake_amount
         console.log("result: " + wallet + " - " + stakeSum.toFixed() + " - " + balance.toFixed());
         await writeToResultCSV(wallet, stakeSum.toFixed(), balance.toFixed());
