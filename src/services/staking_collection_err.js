@@ -53,9 +53,9 @@ async function queryStakeDataWithWalletError(wallet) {
             return;
         }
 
-        let stakingAmount = new BigNumber(0);
-        let rewardAmount = new BigNumber(0);
-        let balance = new BigNumber(0);
+        let stakingAmount = new BigInt(0);
+        let rewardAmount = new BigInt(0);
+        let balance = new BigInt(0);
 
         let numberOfStake = await stakingContract.methods.numberStakeTime(wallet).call();
         for (var sid = 0; sid < numberOfStake; sid ++) {
@@ -65,20 +65,20 @@ async function queryStakeDataWithWalletError(wallet) {
                 let latest = await bscWeb3[0].eth.getBlockNumber()
                 let blockEndData = await bscWeb3[0].eth.getBlock(latest); 
                 if(stakeData.stakeTo >= blockEndData.timestamp) {
-                    stakingAmount = stakingAmount.plus(new BigNumber(stakeData.balance));
+                    stakingAmount = stakingAmount + BigInt(stakeData.balance);
                     reward = await stakingContract.methods.reward(wallet, sid).call();
-                    rewardAmount = rewardAmount.plus(new BigNumber(reward));
+                    rewardAmount = rewardAmount + BigInt(reward);
                 }
                 else {
-                    balance = balance.plus(new BigNumber(stakeData.balance));
+                    balance = balance + BigInt(stakeData.balance);
                     reward = await stakingContract.methods.reward(wallet, sid).call();
-                    balance = balance.plus(new BigNumber(reward));
+                    balance = balance + BigInt(reward);
                 }
             }
         }
         // Query DFY contract để lấy balance của ví add vào balance
         balanceTmp = await tokenContract.methods.balanceOf(wallet).call();
-        balance = balance.plus(new BigNumber(balanceTmp));
+        balance = balance + BigInt(balanceTmp);
         let stakeSum = stakingAmount.plus(rewardAmount);
         //  stakeSum = stakeSum.multipliedBy(1.5)
         await writeToResultCSVError(wallet, stakeSum.toFixed(), balance.toFixed());
