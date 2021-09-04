@@ -81,7 +81,7 @@ async function queryStakeDataWithWalletError(wallet) {
         balance = balance + BigInt(balanceTmp);
         let stakeSum = stakingAmount + rewardAmount;
         //  stakeSum = stakeSum.multipliedBy(1.5)
-        await writeToResultCSVError(wallet, stakeSum.toFixed(), balance.toFixed());
+        await writeToResultCSVError(wallet, stakeSum, balance);
     } catch (error) {
         console.log(error);
         if(!errorProcessedMap.includes(wallet)) {
