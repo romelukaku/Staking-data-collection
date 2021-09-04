@@ -79,7 +79,7 @@ async function queryStakeDataWithWalletError(wallet) {
         // Query DFY contract để lấy balance của ví add vào balance
         balanceTmp = await tokenContract.methods.balanceOf(wallet).call();
         balance = balance + BigInt(balanceTmp);
-        let stakeSum = stakingAmount.plus(rewardAmount);
+        let stakeSum = stakingAmount + rewardAmount;
         //  stakeSum = stakeSum.multipliedBy(1.5)
         await writeToResultCSVError(wallet, stakeSum.toFixed(), balance.toFixed());
     } catch (error) {
