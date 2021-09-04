@@ -142,9 +142,9 @@ async function queryStakeData(pastEvent, stakingContract) {
             return;
         }
 
-        let stakingAmount = new BigInt(0);
-        let rewardAmount = new BigInt(0);
-        let balance = new BigInt(0);
+        let stakingAmount = BigInt(0);
+        let rewardAmount = BigInt(0);
+        let balance = BigInt(0);
         // cần blockStop để lấy tổng số stake tới thời điểm blockStop
         let numberOfStake = await stakingContract.methods.numberStakeTime(wallet).call({});
         for (var sid = 0; sid < numberOfStake; sid ++) {
