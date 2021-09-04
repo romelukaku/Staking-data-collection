@@ -173,8 +173,8 @@ async function queryStakeData(pastEvent, stakingContract) {
         balance = balance + BigInt(balanceTmp);
         let stakeSum = stakingAmount + rewardAmount;
         //  stakeSum = stakeSum.multipliedBy(1.5) // nếu muốn nhân 1.5 ở stake_amount
-        console.log("result: " + wallet + " - " + stakeSum.toFixed() + " - " + balance.toFixed());
-        await writeToResultCSV(wallet, stakeSum.toFixed(), balance.toFixed());
+        console.log("result: " + wallet + " - " + stakeSum + " - " + balance);
+        await writeToResultCSV(wallet, stakeSum, balance);
     } catch (error) {
         console.log(`error ${wallet}\n`);
         console.log(error);
